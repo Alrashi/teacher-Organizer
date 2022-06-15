@@ -17,6 +17,6 @@ samples, guidance on mobile development, and a full API reference.
 
 
 
-[ ] Classes number are not always updating
-[ ] Delete warning Message.
+[  ] Classes number are not always updating
+[  ] Delete warning Message.
 
