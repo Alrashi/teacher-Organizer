@@ -57,10 +57,10 @@ class _StudentPageState extends State<StudentPage> {
     }
   }
 
-  void updateStudent() {
+  void updateStudent() async {
     if (widget.storedStudent != null) {
       DatabaseHelper _dbHelper = DatabaseHelper();
-      _dbHelper.updateStudent(
+      await _dbHelper.updateStudent(
           widget.storedStudent!.id!,
           studentNameController.text,
           lastHomeworkController.text,
@@ -80,7 +80,7 @@ class _StudentPageState extends State<StudentPage> {
       DatabaseHelper _dbHelper = DatabaseHelper();
       await _dbHelper.deleteStudent(widget.storedStudent!.id!);
       Navigator.pop(context);
-      print("student Updated");
+      print("student deleted");
     }
   }
 
@@ -191,13 +191,8 @@ class _StudentPageState extends State<StudentPage> {
                     ),
                     onChanged: (value) {
                       //1st check: check the user input is not null
-                      if (value != null) {
-                        //2nd check: check if the passed student is null because if so it means the user clicked on the creat student button and now we create a new student
-                        //if it is not null then the user clicked on a student card and he wants to check or update
-                        if (widget.storedStudent == null) {
-                          lastHomeworkController.text = value;
-                        } else
-                          print("you need to update the entry");
+                      if (widget.storedStudent == null) {
+                        lastHomeworkController.text = value;
                       }
                     },
                   ),
