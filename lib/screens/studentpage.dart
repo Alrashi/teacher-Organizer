@@ -57,10 +57,10 @@ class _StudentPageState extends State<StudentPage> {
     }
   }
 
-  void updateStudent() {
+  void updateStudent() async {
     if (widget.storedStudent != null) {
       DatabaseHelper _dbHelper = DatabaseHelper();
-      _dbHelper.updateStudent(
+      await _dbHelper.updateStudent(
           widget.storedStudent!.id!,
           studentNameController.text,
           lastHomeworkController.text,
