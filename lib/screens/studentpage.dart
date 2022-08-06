@@ -149,23 +149,23 @@ class _StudentPageState extends State<StudentPage> {
                           icon: Icon(Icons.person),
                         ),
                         style: const TextStyle(
-                          fontSize: 15,
+                          fontSize: 20,
                           color: Colors.white,
                           fontWeight: FontWeight.normal,
                         ),
-                        onChanged: (value) {
-                          setState(() {
-                            value;
-                          });
-                          //1st check: check the user input is not null
-                          if (value != null) {
-                            //2nd check: check if the passed student is null because if so it means the user clicked on the creat student button and now we create a new student
-                            //if it is not null then the user clicked on a student card and he wants to check or update
-                            if (widget.storedStudent == null) {
-                              studentNameController.text = value;
-                            }
-                          }
-                        },
+                        // onChanged: (value) {
+                        //   setState(() {
+                        //     value;
+                        //   });
+                        //   //1st check: check the user input is not null
+                        //   if (value != null) {
+                        //     //2nd check: check if the passed student is null because if so it means the user clicked on the creat student button and now we create a new student
+                        //     //if it is not null then the user clicked on a student card and he wants to check or update
+                        //     if (widget.storedStudent == null) {
+                        //       //studentNameController.text = value;
+                        //     }
+                        //   }
+                        // },
                       ),
                     ),
                   ),
@@ -189,17 +189,17 @@ class _StudentPageState extends State<StudentPage> {
                       color: Colors.white,
                       fontWeight: FontWeight.normal,
                     ),
-                    onChanged: (value) {
-                      //1st check: check the user input is not null
-                      if (value != null) {
-                        //2nd check: check if the passed student is null because if so it means the user clicked on the creat student button and now we create a new student
-                        //if it is not null then the user clicked on a student card and he wants to check or update
-                        if (widget.storedStudent == null) {
-                          lastHomeworkController.text = value;
-                        } else
-                          print("you need to update the entry");
-                      }
-                    },
+                    // onChanged: (value) {
+                    //   //1st check: check the user input is not null
+                    //   if (value != null) {
+                    //     //2nd check: check if the passed student is null because if so it means the user clicked on the creat student button and now we create a new student
+                    //     //if it is not null then the user clicked on a student card and he wants to check or update
+                    //     if (widget.storedStudent == null) {
+                    //       lastHomeworkController.text = value;
+                    //     } else
+                    //       print("you need to update the entry");
+                    //   }
+                    // },
                   ),
                 ),
               ),
@@ -221,17 +221,17 @@ class _StudentPageState extends State<StudentPage> {
                       color: Colors.white,
                       fontWeight: FontWeight.normal,
                     ),
-                    onChanged: (value) {
-                      //1st check: check the user input is not null
-                      if (value != null) {
-                        //2nd check: check if the passed student is null because if so it means the user clicked on the creat student button and now we create a new student
-                        //if it is not null then the user clicked on a student card and he wants to check or update
-                        if (widget.storedStudent == null) {
-                          nextClassStartPointController.text = value;
-                        } else
-                          print("you need to update the entry");
-                      }
-                    },
+                    // onChanged: (value) {
+                    //   //1st check: check the user input is not null
+                    //   if (value != null) {
+                    //     //2nd check: check if the passed student is null because if so it means the user clicked on the creat student button and now we create a new student
+                    //     //if it is not null then the user clicked on a student card and he wants to check or update
+                    //     if (widget.storedStudent == null) {
+                    //       nextClassStartPointController.text = value;
+                    //     } else
+                    //       print("you need to update the entry");
+                    //   }
+                    // },
                   ),
                 ),
               ),
@@ -306,4 +306,3 @@ class _StudentPageState extends State<StudentPage> {
     );
   }
 }
-//test
