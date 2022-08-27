@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
           builder: (context, AsyncSnapshot<List<Student>> snapshot) {
             if (snapshot.hasData) {
               return ListView.builder(
-                shrinkWrap: true,
+                //shrinkWrap: true,
                 itemCount: snapshot.data?.length,
                 itemBuilder: (context, index) {
                   return GestureDetector(
