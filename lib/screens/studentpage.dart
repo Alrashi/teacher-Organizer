@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:teacher_organizer/databasehelper.dart';
 import 'package:teacher_organizer/models/student.dart';
@@ -153,19 +154,19 @@ class _StudentPageState extends State<StudentPage> {
                           color: Colors.white,
                           fontWeight: FontWeight.normal,
                         ),
-                        // onChanged: (value) {
-                        //   setState(() {
-                        //     value;
-                        //   });
-                        //   //1st check: check the user input is not null
-                        //   if (value != null) {
-                        //     //2nd check: check if the passed student is null because if so it means the user clicked on the creat student button and now we create a new student
-                        //     //if it is not null then the user clicked on a student card and he wants to check or update
-                        //     if (widget.storedStudent == null) {
-                        //       //studentNameController.text = value;
-                        //     }
-                        //   }
-                        // },
+                        onChanged: (value) {
+                          setState(() {
+                            value;
+                          });
+                          //1st check: check the user input is not null
+                          if (value != null) {
+                            //2nd check: check if the passed student is null because if so it means the user clicked on the creat student button and now we create a new student
+                            //if it is not null then the user clicked on a student card and he wants to check or update
+                            // if (widget.storedStudent == null) {
+                            //   //studentNameController.text = value;
+                            // }
+                          }
+                        },
                       ),
                     ),
                   ),
@@ -286,7 +287,39 @@ class _StudentPageState extends State<StudentPage> {
               ),
               IconButton(
                 onPressed: () {
-                  deleteStudent();
+                  // if we are adding a new student then make the texfields all empty and put the classes counter on 0 to re write the infos
+                  if (widget.storedStudent != null) {
+                    showDialog(
+                      context: context,
+                      builder: (_) {
+                        return AlertDialog(
+                          title: Text("Delete?"),
+                          content:
+                              Text("Are you sure you want delete the Student?"),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                deleteStudent();
+                              },
+                              child: Text("Yes"),
+                            ),
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Text("Cancel"))
+                          ],
+                        );
+                      },
+                    );
+                  } else {
+                    studentNameController.text = "";
+                    lastHomeworkController.text = "";
+                    nextClassStartPointController.text = "";
+                    _classesCounter = 0;
+                  }
+
+                  //deleteStudent();
                 },
                 icon: const Icon(Icons.delete),
               ),

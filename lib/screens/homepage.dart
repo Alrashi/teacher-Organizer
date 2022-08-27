@@ -20,76 +20,44 @@ class _HomePageState extends State<HomePage> {
         title: Text("Teacher Organizer"),
         backgroundColor: Colors.red,
       ),
-      body: SizedBox(
-        width: double.infinity,
-        child: Stack(
-          children: [
-            FutureBuilder(
-                future: _dbHelper.getStudents(),
-                builder: (context, AsyncSnapshot<List<Student>> snapshot) {
-                  if (snapshot.hasData) {
-                    return ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: snapshot.data?.length,
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => StudentPage(
-                                          storedStudent: snapshot.data![index],
-                                          tfEnabled: false,
-                                          buttonsColor: Colors.grey,
-                                        ))).then((value) {
-                              setState(() {});
-                            });
-                            ;
-                          },
-                          child: StudentCardWidget(
-                              snapshot.data![index].name,
-                              snapshot.data![index].lastHomeWork,
-                              snapshot.data![index].nextClassStartPoint,
-                              snapshot.data![index].numberOfClasses.toString()),
-                        );
-                      },
-                    );
-                  }
-                  return const Center(
-                    child: Text(
-                      "No Data!!!",
-                      style: TextStyle(color: Color.fromARGB(255, 125, 71, 71)),
-                    ),
+      body: FutureBuilder(
+          future: _dbHelper.getStudents(),
+          builder: (context, AsyncSnapshot<List<Student>> snapshot) {
+            if (snapshot.hasData) {
+              return ListView.builder(
+                shrinkWrap: true,
+                itemCount: snapshot.data?.length,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => StudentPage(
+                                    storedStudent: snapshot.data![index],
+                                    tfEnabled: false,
+                                    buttonsColor: Colors.grey,
+                                  ))).then((value) {
+                        setState(() {});
+                      });
+                      ;
+                    },
+                    child: StudentCardWidget(
+                        snapshot.data![index].name,
+                        snapshot.data![index].lastHomeWork,
+                        snapshot.data![index].nextClassStartPoint,
+                        snapshot.data![index].numberOfClasses.toString()),
                   );
-                }),
-            // Positioned(
-            //   bottom: 20,
-            //   right: 20,
-            //   child: GestureDetector(
-            //     onTap: () {
-            //       Navigator.push(
-            //         context,
-            //         MaterialPageRoute(
-            //           builder: (context) => StudentPage(
-            //             storedStudent: null,
-            //             tfEnabled: true,
-            //             buttonsColor: Colors.green,
-            //           ),
-            //         ),
-            //       ).then((value) {
-            //         setState(() {});
-            //       });
-            //     },
-            //     child: Container(
-            //       child: const Image(
-            //         image: AssetImage('assets/addbutton2.png'),
-            //       ),
-            //     ),
-            //   ),
-            // ),
-          ],
-        ),
-      ),
+                },
+              );
+            }
+            return const Center(
+              child: Text(
+                "No Data!!!",
+                style: TextStyle(color: Color.fromARGB(255, 125, 71, 71)),
+              ),
+            );
+          }),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
