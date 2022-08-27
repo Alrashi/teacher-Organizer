@@ -97,6 +97,14 @@ class _StudentPageState extends State<StudentPage> {
     return null;
   }
 
+  String creatOrUpdate() {
+    if (widget.storedStudent == null) {
+      return "create";
+    } else {
+      return "update";
+    }
+  }
+
   void increaseClassesNumber() {
     setState(() {
       _classesCounter++;
@@ -288,35 +296,38 @@ class _StudentPageState extends State<StudentPage> {
               IconButton(
                 onPressed: () {
                   // if we are adding a new student then make the texfields all empty and put the classes counter on 0 to re write the infos
-                  if (widget.storedStudent != null) {
+                  if (creatOrUpdate() == "update") {
                     showDialog(
                       context: context,
                       builder: (_) {
                         return AlertDialog(
-                          title: Text("Delete?"),
-                          content:
-                              Text("Are you sure you want delete the Student?"),
+                          title: const Text("Delete?"),
+                          content: const Text(
+                              "Are you sure you want delete the Student?"),
                           actions: [
                             TextButton(
                               onPressed: () {
                                 deleteStudent();
+                                Navigator.pop(context);
                               },
-                              child: Text("Yes"),
+                              child: const Text("Yes"),
                             ),
                             TextButton(
                                 onPressed: () {
                                   Navigator.pop(context);
                                 },
-                                child: Text("Cancel"))
+                                child: const Text("Cancel"))
                           ],
                         );
                       },
                     );
                   } else {
-                    studentNameController.text = "";
-                    lastHomeworkController.text = "";
-                    nextClassStartPointController.text = "";
-                    _classesCounter = 0;
+                    setState(() {
+                      studentNameController.text = "";
+                      lastHomeworkController.text = "";
+                      nextClassStartPointController.text = "";
+                      _classesCounter = 0;
+                    });
                   }
 
                   //deleteStudent();
