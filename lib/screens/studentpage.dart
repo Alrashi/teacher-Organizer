@@ -326,8 +326,6 @@ class _StudentPageState extends State<StudentPage> {
                       _classesCounter = 0;
                     });
                   }
-
-                  //deleteStudent();
                 },
                 icon: const Icon(Icons.delete),
               ),
@@ -338,7 +336,26 @@ class _StudentPageState extends State<StudentPage> {
       floatingActionButton: FloatingActionButton(
         onPressed: widget.tfEnabled
             ? () {
-                createAndUpdateStudent();
+                if (_errorText == null) {
+                  createAndUpdateStudent();
+                }
+                showDialog(
+                  context: context,
+                  builder: (_) {
+                    return AlertDialog(
+                      title: const Text("Unvalid Student Name!"),
+                      content: const Text("Please enter a valid student name"),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Text("OK"),
+                        ),
+                      ],
+                    );
+                  },
+                );
               }
             : null,
         backgroundColor: Colors.amber,
