@@ -120,6 +120,7 @@ class _StudentPageState extends State<StudentPage> {
   @override
   void initState() {
     //checking whether the passed student is null (are we comming from an add new user or from existing user)
+    //TODO: use the function createOrUpdate
     if (widget.storedStudent != null) {
       _classesCounter = widget.storedStudent!.numberOfClasses;
       studentNameController.text = widget.storedStudent!.name;
@@ -198,14 +199,7 @@ class _StudentPageState extends State<StudentPage> {
                       color: Colors.white,
                       fontWeight: FontWeight.normal,
                     ),
-<<<<<<< HEAD
-                    onChanged: (value) {
-                      //1st check: check the user input is not null
-                      if (widget.storedStudent == null) {
-                        lastHomeworkController.text = value;
-                      }
-                    },
-=======
+
                     // onChanged: (value) {
                     //   //1st check: check the user input is not null
                     //   if (value != null) {
@@ -217,7 +211,6 @@ class _StudentPageState extends State<StudentPage> {
                     //       print("you need to update the entry");
                     //   }
                     // },
->>>>>>> alertmessage
                   ),
                 ),
               ),
