@@ -30,7 +30,7 @@ class _StudentPageState extends State<StudentPage> {
       "Enter where to start in the upcomming class";
 
   void createAndUpdateStudent() async {
-    if (widget.storedStudent == null) {
+    if (creatOrUpdate() == "create") {
       if (_errorText == null) {
         //isn't it better to make it doppel condition?????????
         setState(() {
@@ -77,7 +77,7 @@ class _StudentPageState extends State<StudentPage> {
   }
 
   void deleteStudent() async {
-    if (widget.storedStudent != null) {
+    if (creatOrUpdate() == "update") {
       DatabaseHelper _dbHelper = DatabaseHelper();
       await _dbHelper.deleteStudent(widget.storedStudent!.id!);
       Navigator.pop(context);
@@ -120,18 +120,13 @@ class _StudentPageState extends State<StudentPage> {
   @override
   void initState() {
     //checking whether the passed student is null (are we comming from an add new user or from existing user)
-    //TODO: use the function createOrUpdate
-    if (widget.storedStudent != null) {
+    if (creatOrUpdate() == "update") {
       _classesCounter = widget.storedStudent!.numberOfClasses;
       studentNameController.text = widget.storedStudent!.name;
       lastHomeworkController.text = widget.storedStudent!.lastHomeWork!;
       nextClassStartPointController.text =
           widget.storedStudent!.nextClassStartPoint!;
     }
-    // if (widget.tfEnabled == true) {
-    //   widget.buttonsColor = Colors.green;
-    // }
-    // widget.buttonsColor = Colors.grey;
   }
 
   @override
