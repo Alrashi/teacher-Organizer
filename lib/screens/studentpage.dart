@@ -298,9 +298,18 @@ class _StudentPageState extends State<StudentPage> {
                       context: context,
                       builder: (_) {
                         return AlertDialog(
-                          title: const Text("Delete?"),
+                          shape: const RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(20.0)),
+                          ),
+                          title: const Text(
+                            "Delete Student",
+                            style: TextStyle(color: Colors.red),
+                          ),
                           content: const Text(
-                              "Are you sure you want delete the Student?"),
+                            "Are you sure you want delete the Student?",
+                            style: TextStyle(color: Colors.amber),
+                          ),
                           actions: [
                             TextButton(
                               onPressed: () {
@@ -338,13 +347,23 @@ class _StudentPageState extends State<StudentPage> {
             ? () {
                 if (_errorText == null) {
                   createAndUpdateStudent();
+                  Navigator.pop(context);
                 }
                 showDialog(
                   context: context,
                   builder: (_) {
                     return AlertDialog(
-                      title: const Text("Unvalid Student Name!"),
-                      content: const Text("Please enter a valid student name"),
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                      ),
+                      title: const Text(
+                        "Unvalid Student Name!",
+                        style: TextStyle(color: Colors.red),
+                      ),
+                      content: const Text(
+                        "Please enter a valid student name",
+                        style: TextStyle(color: Colors.amber),
+                      ),
                       actions: [
                         TextButton(
                           onPressed: () {
