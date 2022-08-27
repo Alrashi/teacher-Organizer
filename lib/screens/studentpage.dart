@@ -168,13 +168,13 @@ class _StudentPageState extends State<StudentPage> {
                             value;
                           });
                           //1st check: check the user input is not null
-                          if (value != null) {
-                            //2nd check: check if the passed student is null because if so it means the user clicked on the creat student button and now we create a new student
-                            //if it is not null then the user clicked on a student card and he wants to check or update
-                            // if (widget.storedStudent == null) {
-                            //   //studentNameController.text = value;
-                            // }
-                          }
+                          // if (value != null) {
+                          //   //2nd check: check if the passed student is null because if so it means the user clicked on the creat student button and now we create a new student
+                          //   //if it is not null then the user clicked on a student card and he wants to check or update
+                          //   // if (widget.storedStudent == null) {
+                          //   //   //studentNameController.text = value;
+                          //   // }
+                          // }
                         },
                       ),
                     ),
