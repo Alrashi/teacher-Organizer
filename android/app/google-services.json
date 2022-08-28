@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "494700781950",
+    "project_id": "teacheroranizer",
+    "storage_bucket": "teacheroranizer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:494700781950:android:ca90ebc6a708ef1b8e532f",
+        "android_client_info": {
+          "package_name": "com.example.teacher_organizer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "494700781950-ide2poeea5ov1eo9mi5ehd4lreq91qf4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyu1gcfhYY7HtpFXcKj5tWS1HxXoxe0uY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "494700781950-ide2poeea5ov1eo9mi5ehd4lreq91qf4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "494700781950-i6tv42vv6n7t6odrf16mqtthnmfktes4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.teacherOrganizer"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

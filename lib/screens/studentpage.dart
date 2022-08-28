@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:teacher_organizer/databasehelper.dart';
@@ -106,9 +107,15 @@ class _StudentPageState extends State<StudentPage> {
   }
 
   void increaseClassesNumber() {
+    //testing realtime database of firebase
+    DatabaseReference _testRef =
+        FirebaseDatabase.instance.reference().child("test");
+
     setState(() {
       _classesCounter++;
     });
+    _testRef.set("Class Number  ${widget.storedStudent!.name} " +
+        " ${_classesCounter} ");
   }
 
   void decreaseClassesNumber() {
