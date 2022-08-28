@@ -1,4 +1,5 @@
-import 'package:firebase_database/firebase_database.dart';
+// import 'package:firebase_database/firebase_database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:teacher_organizer/databasehelper.dart';
@@ -29,6 +30,9 @@ class _StudentPageState extends State<StudentPage> {
   String? lastHomeWorkHintText = "Enter the previous Homework";
   String? nextClassStartPointHintText =
       "Enter where to start in the upcomming class";
+// Instance for the database cloude firestore
+  final CollectionReference _students =
+      FirebaseFirestore.instance.collection('students');
 
   void createAndUpdateStudent() async {
     if (creatOrUpdate() == "create") {
@@ -37,6 +41,7 @@ class _StudentPageState extends State<StudentPage> {
         setState(() {
           widget.buttonsColor = Colors.grey;
         });
+
         DatabaseHelper _dbHelper = DatabaseHelper();
         Student _newStudent = Student(
           name: studentNameController.text,
@@ -45,6 +50,11 @@ class _StudentPageState extends State<StudentPage> {
           numberOfClasses: _classesCounter,
         );
         await _dbHelper.createStudent(_newStudent);
+        // Writing data to cloud firestore
+        // await _students.add({
+        //   "name": studentNameController.text,
+        //   "lastHomework": lastHomeworkController.text
+        // });
         setState(() {
           widget.tfEnabled = false;
         });
@@ -108,14 +118,14 @@ class _StudentPageState extends State<StudentPage> {
 
   void increaseClassesNumber() {
     //testing realtime database of firebase
-    DatabaseReference _testRef =
-        FirebaseDatabase.instance.reference().child("test");
+    // DatabaseReference _testRef =
+    //     FirebaseDatabase.instance.reference().child("test");
+    // _testRef.set("Class Number  ${widget.storedStudent!.name} " +
+    //     " ${_classesCounter} ");
 
     setState(() {
       _classesCounter++;
     });
-    _testRef.set("Class Number  ${widget.storedStudent!.name} " +
-        " ${_classesCounter} ");
   }
 
   void decreaseClassesNumber() {
