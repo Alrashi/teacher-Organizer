@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:teacher_organizer/databasehelper.dart';
 import 'package:teacher_organizer/models/student.dart';
+import 'package:teacher_organizer/screens/testscreen.dart';
 
 class StudentPage extends StatefulWidget {
   final Student? storedStudent;
@@ -50,11 +51,7 @@ class _StudentPageState extends State<StudentPage> {
           numberOfClasses: _classesCounter,
         );
         await _dbHelper.createStudent(_newStudent);
-        // Writing data to cloud firestore
-        // await _students.add({
-        //   "name": studentNameController.text,
-        //   "lastHomework": lastHomeworkController.text
-        // });
+
         setState(() {
           widget.tfEnabled = false;
         });
@@ -122,6 +119,12 @@ class _StudentPageState extends State<StudentPage> {
     //     FirebaseDatabase.instance.reference().child("test");
     // _testRef.set("Class Number  ${widget.storedStudent!.name} " +
     //     " ${_classesCounter} ");
+    List<Object> _studentsData = [];
+
+    final CollectionReference _students =
+        FirebaseFirestore.instance.collection('students');
+    final snapshot = _students.get();
+    print(_students);
 
     setState(() {
       _classesCounter++;
@@ -355,6 +358,17 @@ class _StudentPageState extends State<StudentPage> {
                 },
                 icon: const Icon(Icons.delete),
               ),
+              IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const TestScreen()),
+                  );
+                  icon:
+                  Icon(Icons.abc);
+                },
+                icon: const Icon(Icons.abc),
+              )
             ],
           ),
         ],
@@ -364,34 +378,34 @@ class _StudentPageState extends State<StudentPage> {
             ? () {
                 if (_errorText == null) {
                   createAndUpdateStudent();
-                  Navigator.pop(context);
-                }
-                showDialog(
-                  context: context,
-                  builder: (_) {
-                    return AlertDialog(
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                      ),
-                      title: const Text(
-                        "Unvalid Student Name!",
-                        style: TextStyle(color: Colors.red),
-                      ),
-                      content: const Text(
-                        "Please enter a valid student name",
-                        style: TextStyle(color: Colors.amber),
-                      ),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text("OK"),
+                } else {
+                  showDialog(
+                    context: context,
+                    builder: (_) {
+                      return AlertDialog(
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20.0)),
                         ),
-                      ],
-                    );
-                  },
-                );
+                        title: const Text(
+                          "Unvalid Student Name!",
+                          style: TextStyle(color: Colors.red),
+                        ),
+                        content: const Text(
+                          "Please enter a valid student name",
+                          style: TextStyle(color: Colors.amber),
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text("OK"),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                }
               }
             : null,
         backgroundColor: Colors.amber,

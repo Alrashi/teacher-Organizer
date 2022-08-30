@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -18,25 +20,50 @@ class DatabaseHelper {
   }
 
   Future<void> createStudent(Student student) async {
-    Database _db = await database();
-    await _db.insert(
-      "students",
-      student.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+    final CollectionReference _students =
+        FirebaseFirestore.instance.collection('students');
+    //ready to add
+    await _students.add({
+      "name": student.name,
+      "lastHomeWork": student.lastHomeWork,
+      "nextClassStartPoint": student.nextClassStartPoint,
+      "numberOfClasses": student.numberOfClasses
+    });
+
+    // Database _db = await database();
+    // await _db.insert(
+    //   "students",
+    //   student.toMap(),
+    //   conflictAlgorithm: ConflictAlgorithm.replace,
+    // );
   }
 
   Future<List<Student>> getStudents() async {
-    Database _db = await database();
-    List<Map<String, dynamic>> studentsMap = await _db.query('students');
+    // final CollectionReference _students =
+    //    FirebaseFirestore.instance.collection('students');
+    // AsyncSnapshot<QuerySnapshot>? streamSnapshot;
+    // int docsLength = streamSnapshot!.data!.docs.length;
+
+    List<Map<String, dynamic>> studentsMap = [];
+    await FirebaseFirestore.instance.collection('students').get().then((event) {
+      for (var doc in event.docs) {
+        studentsMap.add(doc.data());
+      }
+    });
+
+    // final snapshot = await _students.get();
+
+    // Database _db = await database();
+    // List<Map<String, dynamic>> studentsMap = await _db.query('students');
 
     return List.generate(studentsMap.length, (index) {
       return Student(
-          id: studentsMap[index]['id'],
-          name: studentsMap[index]['name'],
-          lastHomeWork: studentsMap[index]['lastHomeWork'],
-          nextClassStartPoint: studentsMap[index]['nextClassStartPoint'],
-          numberOfClasses: studentsMap[index]['numberOfClasses']);
+        id: studentsMap[index]['id'],
+        name: studentsMap[index]['name'],
+        lastHomeWork: studentsMap[index]['lastHomeWork'],
+        nextClassStartPoint: studentsMap[index]['nextClassStartPoint'],
+        numberOfClasses: studentsMap[index]['numberOfClasses'],
+      );
     });
   }
 
@@ -57,3 +84,10 @@ class DatabaseHelper {
     await _db.rawDelete("DELETE FROM students WHERE id = '$id'");
   }
 }
+
+
+
+
+//await _products.add({"name": name, "price": price});
+//await _products.update({"name": name, "price": price});
+//await _products.doc(productId).delete();

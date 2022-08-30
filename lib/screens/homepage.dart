@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:teacher_organizer/costumwidgets/studentcard.dart';
 import 'package:teacher_organizer/databasehelper.dart';
@@ -12,6 +13,8 @@ class HomePage extends StatefulWidget {
 @override
 class _HomePageState extends State<HomePage> {
   DatabaseHelper _dbHelper = DatabaseHelper();
+  final CollectionReference _students =
+      FirebaseFirestore.instance.collection('students');
 
   @override
   Widget build(BuildContext context) {
