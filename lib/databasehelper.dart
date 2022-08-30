@@ -29,7 +29,7 @@ class DatabaseHelper {
       "nextClassStartPoint": student.nextClassStartPoint,
       "numberOfClasses": student.numberOfClasses
     });
-
+//TODO delete comments
     // Database _db = await database();
     // await _db.insert(
     //   "students",
@@ -39,26 +39,23 @@ class DatabaseHelper {
   }
 
   Future<List<Student>> getStudents() async {
-    // final CollectionReference _students =
-    //    FirebaseFirestore.instance.collection('students');
-    // AsyncSnapshot<QuerySnapshot>? streamSnapshot;
-    // int docsLength = streamSnapshot!.data!.docs.length;
-
     List<Map<String, dynamic>> studentsMap = [];
+    List<String> studentsId = [];
     await FirebaseFirestore.instance.collection('students').get().then((event) {
       for (var doc in event.docs) {
         studentsMap.add(doc.data());
+        studentsId.add(doc.id);
       }
     });
 
     // final snapshot = await _students.get();
-
+    //TODO delete comments of old database
     // Database _db = await database();
     // List<Map<String, dynamic>> studentsMap = await _db.query('students');
 
     return List.generate(studentsMap.length, (index) {
       return Student(
-        id: studentsMap[index]['id'],
+        id: studentsId[index],
         name: studentsMap[index]['name'],
         lastHomeWork: studentsMap[index]['lastHomeWork'],
         nextClassStartPoint: studentsMap[index]['nextClassStartPoint'],
@@ -67,21 +64,36 @@ class DatabaseHelper {
     });
   }
 
-  Future<void> updateStudent(int id, String name, String? lastHomeWork,
+  Future<void> updateStudent(String id, String name, String? lastHomeWork,
       String nextClassStartPoint, int? numberOfClasses) async {
-    Database _db = await database();
-    await _db.rawUpdate("UPDATE students SET name = '$name' WHERE id = '$id'");
-    await _db.rawUpdate(
-        "UPDATE students SET lastHomeWork = '$lastHomeWork' WHERE id = '$id'");
-    await _db.rawUpdate(
-        "UPDATE students SET nextClassStartPoint = '$nextClassStartPoint' WHERE id = '$id'");
-    await _db.rawUpdate(
-        "UPDATE students SET numberOfClasses = '$numberOfClasses' WHERE id = '$id'");
+    //Firebase
+    final CollectionReference _students =
+        FirebaseFirestore.instance.collection('students');
+
+    _students.doc(id).update({
+      'name': name,
+      'lastHomeWork': lastHomeWork,
+      'nextClassStartPoint': nextClassStartPoint,
+      'numberOfClasses': numberOfClasses
+    });
+
+    // Database _db = await database();
+    // await _db.rawUpdate("UPDATE students SET name = '$name' WHERE id = '$id'");
+    // await _db.rawUpdate(
+    //     "UPDATE students SET lastHomeWork = '$lastHomeWork' WHERE id = '$id'");
+    // await _db.rawUpdate(
+    //     "UPDATE students SET nextClassStartPoint = '$nextClassStartPoint' WHERE id = '$id'");
+    // await _db.rawUpdate(
+    //     "UPDATE students SET numberOfClasses = '$numberOfClasses' WHERE id = '$id'");
   }
 
-  Future<void> deleteStudent(int id) async {
-    Database _db = await database();
-    await _db.rawDelete("DELETE FROM students WHERE id = '$id'");
+  Future<void> deleteStudent(String id) async {
+    final CollectionReference _students =
+        FirebaseFirestore.instance.collection('students');
+    _students.doc(id).delete();
+
+    // Database _db = await database();
+    // await _db.rawDelete("DELETE FROM students WHERE id = '$id'");
   }
 }
 

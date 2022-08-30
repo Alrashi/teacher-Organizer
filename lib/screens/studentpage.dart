@@ -358,17 +358,18 @@ class _StudentPageState extends State<StudentPage> {
                 },
                 icon: const Icon(Icons.delete),
               ),
-              IconButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const TestScreen()),
-                  );
-                  icon:
-                  Icon(Icons.abc);
-                },
-                icon: const Icon(Icons.abc),
-              )
+              //to reach a testscreen
+              // IconButton(
+              //   onPressed: () {
+              //     Navigator.push(
+              //       context,
+              //       MaterialPageRoute(builder: (context) => const TestScreen()),
+              //     );
+              //     icon:
+              //     Icon(Icons.abc);
+              //   },
+              //   icon: const Icon(Icons.abc),
+              // )
             ],
           ),
         ],

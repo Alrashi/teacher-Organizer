@@ -1,7 +1,7 @@
 class Student {
   final String name;
 
-  int? id;
+  String? id;
   String? lastHomeWork;
   String? nextClassStartPoint;
   int numberOfClasses;
